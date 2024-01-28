@@ -1,0 +1,96 @@
+
+
+//змінна для розміру контейнера//
+$maxWidth: 1920; //вказати розмір полотна
+$maxWidthContainer: 1180; //вказати розмір обмежуючого контейнера
+
+//змінні для шрифтів//
+//$ff: ;
+//$ff: ;
+//===================================
+
+//міксін для адаптивного шрифта
+@mixin adaptiv-font($pcSize, $mobSize){
+   $addSize: $pcSize - $mobSize;
+   $addMobSize: $addSize + $addSize * 0.7;
+   @media(max-width: 767px){
+      font-size: calc(#{$mobSize + px} + #{$addMobSize} * ((100vw - 320px) / #{$maxWidth}));
+   }
+   @media(min-width: 767px){
+      font-size: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+   }
+}
+//приклад використання міксіна
+//.1{
+//   font-weight: 500;
+//   @include adaptiv-font(40,24);  де перше значення - розмір шрифту за макетом
+                                      //друге значення - бажаний розмір на розштренні в 320px   
+//}
+//==========================================================================
+
+//міксін для адаптивної влстивості
+@mixin adaptiv-value($property, $startSize, $minSize){
+   $addSize: $startSize - $minSize;
+   #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+}
+
+//приклад використання міксіна
+//.1{
+//   font-weight: 500;
+//   @include adaptiv-value(padding,40,24);  де перше значення - властивість, яку описуємо
+                                      //друге значення - розмір за макетом
+                                      //третє значення - бажаний розмір на 320px   
+//}
+//==========================================================================
+
+
+.comm-title {
+   h2{
+      @include adaptiv-font(48,28 );
+      font-weight: 400;
+      line-height: 52.8px; /* 110% */
+   }
+   
+}
+
+
+.comm-button {
+   color: #1B1C1D;
+   font-size: 16px;
+   font-weight: 700;
+   line-height: 16px; /* 100% */
+   border-radius: 6px;
+   border: 2px solid #1B1C1D;
+   background: #F96;
+   box-shadow: 4px 4px 0px 0px #000;
+   padding: 16px 30px;
+   transition: all 0.3s ease;
+   @media (min-width:768px){
+      &:hover{
+         background-color: rgb(177, 81, 33);
+         transition: all 0.3s ease;
+      }
+   }
+}
+
+span.decorline{
+   position: relative;
+}
+span.decorline::after{
+   position: absolute;
+   content: "";
+   width: 100%;
+   height: 3px;
+   bottom: 0;
+   left: 0;
+   background-color: #F96;
+}
+span.yellow::after{
+   position: absolute;
+   content: "";
+   width: 100%;
+   height: 3px;
+   bottom: 0;
+   left: 0;
+   background-color: #ffc127;
+}
